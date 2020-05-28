@@ -1,8 +1,6 @@
 $font-family-sans-serif:      Roboto !default;
 $font-family-monospace:       Roboto !default;
 
-$primary:       $red-900 !default;
-
   // Red color degrees
 $red-100: #FAE8EA !default;
 $red-200: #EFB8BF !default;
@@ -49,6 +47,7 @@ $green:   #11A860 !default;
 $yellow:  $yellow-900 !default;
 $red: $red-900; // Danger color override
 $white:    #fff !default;
+$primary:       $red-900 !default;
 
 $container-max-widths: (
   sm: 540px,
