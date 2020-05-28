@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
-        <tomcat.version>9.0.20</tomcat.version>
+        <tomcat.version>9.0.35</tomcat.version>
         <junit.version>4.12</junit.version>
         <jaxb.version>jaxb</jaxb.version>
         <lombok.version>1.18.12</lombok.version>
