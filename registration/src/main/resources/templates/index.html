@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap 4 Website Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>-->
+</head>
+<body class="bg-gray">
+<header class="bg-white">
+    <div id="contact" class="row brown-900 text-center text-white">
+        <div class="p-1 col-sm col-md col-xl col-lg">
+            <span class="icon icon--call"></span>
+            Albilad phone: 9200000 outside kingdom: +95995995959
+        </div>
+    </div>
+    <div class="container">
+        <div class="row p-3">
+            <div class="col-lg-3 col-xl-3 col-12 col-sm-12">
+                <span class="icon icon--call d-flex justify-content-start"></span>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12 col-sm-12">
+                <h5 class="d-flex justify-content-center font-weight-bold">Retrieve Login Information</h5>
+                <h5 class="d-flex justify-content-center">AlBild Digital Experience</h5>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-12 col-sm-12 pr-0 pl-0">
+                <span class="logo float-right"></span>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="container bg-white mt-5 mh-100 rounded shadow" id="main-section"
+      style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px -1px 1px #EDEDF4;">
+    <form @submit.prevent="submit">
+        <div class="row p-5">
+            <div class="col-sm col-lg col-xl col-md">
+                <h4 class="d-flex justify-content-center">Retrieve Login Information</h4>
+                <h5 class="d-flex justify-content-center">Please fill in the below information first</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-xl-6 col-md-6 mr-auto ml-auto">
+                <div class="form-group" :class="{ 'form-group--error': $v.form.idNumber.$error }">
+                    <label for="idNumber">ID Number</label>
+                    <input type="text" v-model.trim="$v.form.idNumber.$model" id="idNumber"
+                           class="form-control" :class="status($v.form.idNumber)">
+                    <div class="alert alert-primary" v-if="$v.form.idNumber.$error && !$v.form.idNumber.required">
+                        Field is required.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number</label>
+                    <input type="text" v-model.trim="$v.form.mobileNumber.$model" id="mobileNumber"
+                           class="form-control" :class="status($v.form.mobileNumber)">
+                    <div class="alert alert-primary"
+                         v-if="$v.form.mobileNumber.$error && !$v.form.mobileNumber.required">Field is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top border-info mt-5" style="height: 80px">
+            <div class="col-sm-12 align-self-center">
+                <button type="submit" class="btn btn-primary float-right">
+                    Next
+                    <li class="icon icon--call pl-5"></li>
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.5/dist/validators.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.5/dist/vuelidate.min.js"></script>
+
+
+<script>
+  // import { required, minLength, between } from 'vuelidate/lib/validators'
+  //Vue.use(BootstrapVue);
+
+  Vue.use(window.vuelidate.default)
+  const { required, minLength, numeric, length, maxLength } = window.validators
+
+  var app = new Vue({
+    el: '#main-section',
+    data: {
+      form: {
+        mobileNumber: '',
+        idNumber: ''
+      }
+    },
+    validations: {
+      form: {
+        idNumber: {
+          required,
+          minLength: minLength(10),
+          maxLength: maxLength(10),
+          numeric
+        },
+        mobileNumber: {
+          required,
+          minLength: minLength(12),
+          maxLength: maxLength(12),
+          numeric,
+          mobile
+        }
+      }
+    },
+    methods: {
+      status (validation) {
+        return {
+          'is-invalid': validation.$error,
+          dirty: validation.$dirty,
+          'is-valid': !validation.$error
+        }
+      },
+      submit () {
+        this.$v.form.$touch()
+        if (this.$v.form.$error) return
+        console.log('done')
+      }
+    }
+  })
+
+  function mobile (val) {
+    return val.match(/^9665[0-9]{8}$/g) !== null;
+  }
+</script>
+</body>
+</html>

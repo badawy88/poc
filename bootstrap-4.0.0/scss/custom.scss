@@ -1,0 +1,100 @@
+// Red color degrees
+$red-100: #FAE8EA !default;
+$red-200: #EFB8BF !default;
+$red-300: #E9A0A9 !default;
+$red-400: #E38893 !default;
+$red-500: #DF717F !default;
+$red-600: #DA5A6A !default;
+$red-700: #D44154 !default;
+$red-800: #CF2A3F !default;
+$red-900: #C91229 !default;
+// Yellow colors degrees
+$yellow-100: #FEF8EB !default;
+$yellow-200: #FBE9C3 !default;
+$yellow-300: #F9E1AE !default;
+$yellow-400: #F7D999 !default;
+$yellow-500: #F7D285 !default;
+$yellow-600: #F6CB71 !default;
+$yellow-700: #F4C35D !default;
+$yellow-800: #F3BC49 !default;
+$yellow-900: #F1B434 !default;
+// Brown colors degrees
+$brown-100: #F2F1F0 !default;
+$brown-200: #D7D4D1 !default;
+$brown-300: #C9C5C1 !default;
+$brown-400: #BBB6B1 !default;
+$brown-500: #AFA8A3 !default;
+$brown-600: #A29A94 !default;
+$brown-700: #948B84 !default;
+$brown-800: #877D75 !default;
+$brown-900: #796E65 !default;
+// Black/Gray colors degrees
+$gray-100: #EDEDF4 !default;
+$gray-200: #DBDBE0 !default;
+$gray-300: #9EA5AC !default;
+$gray-400: #90979E !default;
+$gray-500: #76808A !default;
+$gray-600: #566269 !default;
+$gray-700: #3D4B53 !default;
+$gray-800: #26353E !default;
+$gray-900: #0D1E28 !default;
+
+$black:    #000 !default;
+$green:   #11A860 !default;
+$yellow:  $yellow-900 !default;
+$red: $red-900; // Danger color override
+$white:    #fff !default;
+
+$reds: () !default;
+$reds: map-merge((
+  "100": $red-100,
+  "200": $red-200,
+  "300": $red-300,
+  "400": $red-400,
+  "500": $red-500,
+  "600": $red-600,
+  "700": $red-700,
+  "800": $red-800,
+  "900": $red-900
+), $reds);
+
+.red-100 {
+  background-color: $red-100;
+}
+
+
+@import "functions";
+@import "variables";
+@import "mixins";
+@import "root";
+@import "reboot";
+@import "type";
+@import "images";
+@import "code";
+@import "grid";
+@import "tables";
+@import "forms";
+@import "buttons";
+@import "transitions";
+@import "dropdown";
+@import "button-group";
+@import "input-group";
+@import "custom-forms";
+@import "nav";
+@import "navbar";
+@import "card";
+@import "breadcrumb";
+@import "pagination";
+@import "badge";
+@import "jumbotron";
+@import "alert";
+@import "progress";
+@import "media";
+@import "list-group";
+@import "close";
+@import "modal";
+@import "tooltip";
+@import "popover";
+@import "carousel";
+@import "utilities";
+@import "print";

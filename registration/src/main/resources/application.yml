@@ -1,0 +1,11 @@
+spring:
+  thymeleaf:
+    cache: false
+    suffix: .html
+    mode: html
+  mvc:
+    static-path-pattern: /static/
+
+messages:
+  basename:
+    path: /messages/

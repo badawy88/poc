@@ -10,6 +10,7 @@
     <modules>
         <module>jersey</module>
         <module>service-tomcat-embded</module>
+        <module>custom-annotations</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -21,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
-        <tomcat.version>9.0.33</tomcat.version>
+        <tomcat.version>9.0.0.M6</tomcat.version>
         <junit.version>4.12</junit.version>
         <jaxb.version>jaxb</jaxb.version>
         <lombok.version>1.18.12</lombok.version>
@@ -57,12 +58,16 @@
                 <version>${tomcat.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-logging-juli</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-bundle</artifactId>
                 <version>1.19.4</version>
             </dependency>
-
-
 
 
             <dependency>
@@ -84,6 +89,11 @@
             <dependency>
                 <groupId>org.glassfish.jersey.inject</groupId>
                 <artifactId>jersey-hk2</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet</artifactId>
                 <version>${jersey.version}</version>
             </dependency>
 
@@ -134,12 +144,6 @@
                 <version>2.9.8</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>1.3.2</version>
-            </dependency>
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
@@ -172,9 +176,100 @@
 
         </dependencies>
     </dependencyManagement>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.host.url>http://192.168.100.21:9000</sonar.host.url>
+                <sonar.projectKey>b1c5673385db406f319735dd742ce81826b6e94a</sonar.projectKey>
+                <sonar.scm.provider>git</sonar.scm.provider>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.2</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.5.0.1254</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
+            <!--            Build jar with plugins-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.muntanji.App</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>executable</shadedClassifierName>
+                            <minimizeJar>false</minimizeJar>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>com.muntanji.App</Main-Class>
+                                        <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+                                        <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*.*</artifact>
+                                    <excludes>
+                                        <exclude>*.config</exclude>
+                                        <exclude>junit:**</exclude>
+                                        <exclude>META-INF/*.txt</exclude>
+                                        <exclude>META-INF/NOTICE</exclude>
+                                        <exclude>META-INF/LICENSE</exclude>
+                                        <exclude>META-INF/versions/*.default</exclude>
+                                        <exclude>LICENSE</exclude>
+                                        <exclude>*.txt</exclude>
+                                        <exclude>*.html</exclude>
+                                        <exclude>*.css</exclude>
+                                        <exclude>*.png</exclude>
+                                        <exclude>*.md</exclude>
+                                        <exclude>module-info.*</exclude>
+                                        <exclude>**/LICENSE.*</exclude>
+                                        <exclude>**/NOTICE.*</exclude>
+                                        <exclude>**/MANIFEST.*</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
@@ -206,5 +301,81 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.5.0.1254</version>
+                    <executions>
+                        <execution>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sonar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.2</version>
+                    <configuration>
+                        <append>true</append>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>prepare-agent-integration</id>
+                            <goals>
+                                <goal>prepare-agent-integration</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>jacoco-site</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>appassembler-maven-plugin</artifactId>
+                    <version>2.1.0</version>
+                    <configuration>
+                        <assembleDirectory>target</assembleDirectory>
+                        <programs>
+                            <program>
+                                <mainClass>com.muntanji.App</mainClass>
+                                <id>${project.artifactId}-${project.version}-mkmk</id>
+                            </program>
+                        </programs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>assemble</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <release>14</release>  <!--or <release>10</release>-->
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
