@@ -9,3 +9,5 @@ spring:
 messages:
   basename:
     path: /messages/
+server:
+  port: 8081

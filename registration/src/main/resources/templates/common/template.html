@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="common/template.html :: head">
-    <!-- Add ur extra js here-->
+<head>
+    <title th:text="#{title}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.5/dist/validators.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.5/dist/vuelidate.min.js"></script>
+    <script src="/static/js/common.js?v=.0000000002"></script>
+    <script src="/static/js/otp.min.js?v=.00000000001"></script>
+    <style>
+        input[type=text] .otp{
+            border:1px solid #90979E;
+            text-align: center;
+            width: 23%;
+            height: 40px;
+        }
+    </style>
 </head>
 <body class="bg-gray">
-<header th:insert="common/template.html :: header"></header>
+<header class="bg-white box-shadow">
+    <div id="contact" class="row brown-900 text-center text-white">
+        <div class="p-1 col-sm col-md col-xl col-lg">
+            <span class="icon icon--call"></span>
+            [[#{albilad.contact}]]
+        </div>
+    </div>
+    <div class="container">
+        <div class="row pt-3 pb-3 pr-0 pl-0">
+            <div class="col-lg-3 col-xl-3 col-12 col-sm-12">
+                <span class="icon icon--call d-flex justify-content-start"></span>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12 col-sm-12">
+                <h5 class="d-flex justify-content-center font-weight-bold" th:text="#{title}"></h5>
+                <span class="d-flex justify-content-center small" th:text="#{title.hint}"></span>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-12 col-sm-12 pr-0 pl-0">
+                <span class="logo float-right"></span>
+            </div>
+        </div>
+    </div>
+</header>
 <main class="container bg-white mt-5 mh-100 rounded shadow box-shadow" id="main-section">
     <form @submit.prevent="submit">
         <div class="row p-5">
@@ -19,8 +59,7 @@
                     <label for="idNumber" th:text="#{idNumber.label}"></label>
                     <input type="text" v-model.trim="$v.form.idNumber.$model" id="idNumber"
                            class="form-control" :class="status($v.form.idNumber)">
-                    <div class="alert alert-primary" v-if="$v.form.idNumber.$error && !$v.form.idNumber.required"
-                         th:text="#{field.required}">
+                    <div class="alert alert-primary" v-if="$v.form.idNumber.$error && !$v.form.idNumber.required" th:text="#{field.required}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -28,8 +67,7 @@
                     <input type="text" v-model.trim="$v.form.mobileNumber.$model" id="mobileNumber"
                            class="form-control" :class="status($v.form.mobileNumber)">
                     <div class="alert alert-primary"
-                         v-if="$v.form.mobileNumber.$error && !$v.form.mobileNumber.required"
-                         th:text="#{field.required}">
+                         v-if="$v.form.mobileNumber.$error && !$v.form.mobileNumber.required" th:text="#{field.required}">
                     </div>
                 </div>
             </div>
@@ -44,9 +82,12 @@
         </div>
     </form>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.5/dist/validators.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.5/dist/vuelidate.min.js"></script>
+
 
 <script>
-
   Vue.use(window.vuelidate.default)
   const { required, minLength, numeric, length, maxLength } = window.validators
 
@@ -92,7 +133,7 @@
   })
 
   function mobile (val) {
-    return val.match(/^9665[0-9]{8}$/g) !== null
+    return val.match(/^9665[0-9]{8}$/g) !== null;
   }
 </script>
 </body>

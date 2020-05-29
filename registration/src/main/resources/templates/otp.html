@@ -3,6 +3,7 @@
 <head th:insert="common/template.html :: head">
     <!-- Add ur extra js here-->
 </head>
+
 <body class="bg-gray">
 <header th:insert="common/template.html :: header"></header>
 <main class="container bg-white mt-5 mh-100 rounded shadow box-shadow" id="main-section">
@@ -14,23 +15,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-lg-6 col-xl-6 col-md-6 mr-auto ml-auto">
+            <div class="col-sm-3 col-lg-3 col-xl-3 col-md-3 mr-auto ml-auto">
                 <div class="form-group" :class="{ 'form-group--error': $v.form.idNumber.$error }">
-                    <label for="idNumber" th:text="#{idNumber.label}"></label>
-                    <input type="text" v-model.trim="$v.form.idNumber.$model" id="idNumber"
-                           class="form-control" :class="status($v.form.idNumber)">
-                    <div class="alert alert-primary" v-if="$v.form.idNumber.$error && !$v.form.idNumber.required"
-                         th:text="#{field.required}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="mobileNumber" th:text="#{mobileNumber.label}"></label>
-                    <input type="text" v-model.trim="$v.form.mobileNumber.$model" id="mobileNumber"
-                           class="form-control" :class="status($v.form.mobileNumber)">
-                    <div class="alert alert-primary"
-                         v-if="$v.form.mobileNumber.$error && !$v.form.mobileNumber.required"
-                         th:text="#{field.required}">
-                    </div>
+                    <OTP></OTP>
                 </div>
             </div>
         </div>
@@ -74,6 +61,9 @@
           mobile
         }
       }
+    },
+    components: {
+      otp
     },
     methods: {
       status (validation) {

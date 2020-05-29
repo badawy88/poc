@@ -1,0 +1,16 @@
+/***
+ ** Apply RTL
+ ** Created on May 28
+ */
+*:lang(ar) {
+  direction: rtl;
+  &.float-right {
+    float: left !important;
+  }
+  &.float-left {
+    float: right !important;
+  }
+}
+body:lang(ar) {
+  text-align: right;
+}

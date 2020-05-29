@@ -8,14 +8,15 @@ import java.util.Locale;
 
 @Controller
 public class HomeController {
-    @GetMapping("/signup")
-    public String signUp(Model model) {
-        model.addAttribute("message" , "welcome");
-        return "add-user";
-    }
 
-    @GetMapping("/")
+    @GetMapping(value = {"/" , "index" , "home"})
     public String reset( Model model ) {
         return "index";
     }
+
+    @GetMapping("otp")
+    public String otp() {
+        return "otp";
+    }
+
 }

@@ -49,6 +49,13 @@ $red: $red-900; // Danger color override
 $white:    #fff !default;
 $primary:       $red-900 !default;
 
+// fonts
+$small-font-size: 16px !default;
+$h1-font-size: 96px !default;
+$h2-font-size: 60px !default;
+$h1-font-size: 48px !default;
+//End of fonts
+
 $container-max-widths: (
   sm: 540px,
   md: 720px,
@@ -142,10 +149,20 @@ $grays: map-merge((
 @import "../scss/tooltip";
 @import "../scss/popover";
 @import "../scss/carousel";
-@import "../scss/utilities";
+*:lang(en) {
+  $left-replacement: left;
+  $right-replacement: right;
+  @import "utilities";
+}
+*:lang(ar) {
+  $left-replacement: right;
+  $right-replacement: left;
+  @import "utilities";
+}
 @import "../scss/print";
 @import "functions";
 @import "icons";
+@import "rtl";
 
 .red-100 {
   background-color: $red-100 !important;
@@ -191,6 +208,16 @@ $grays: map-merge((
   background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
   background-repeat: no-repeat;
   background-size: 1rem 1rem;
+}
+
+small,
+.small {
+  font-size: $small-font-size !important;
+  font-weight: 400;
+}
+
+.box-shadow {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px -1px 1px $gray-100;
 }
 
 //sass --watch custom/own.scss:custom/bootstrap.css
