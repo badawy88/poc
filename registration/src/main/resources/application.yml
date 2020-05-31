@@ -3,11 +3,16 @@ spring:
     cache: false
     suffix: .html
     mode: html
+    prefix: classpath:/templates/
   mvc:
     static-path-pattern: /static/
+ # autoconfigure:
+  #  exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
 
-messages:
-  basename:
-    path: /messages/
 server:
   port: 8081
+
+logging:
+  level:
+    root: debug
+

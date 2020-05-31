@@ -1,13 +1,17 @@
 {
   "name": "otp",
   "version": "0.1.0",
-  "description": "",
   "private": false,
-  "license": "MIT",
-  "keywords": [
-    "otp",
-    "one time password"
-  ],
+  "description": "",
+  "author": {
+    "email": "badawymahmod@gmail.com",
+    "name": "Badawy Aboauds"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "rm -rf dist/* && rollup -c scripts/build.js",
+    "lint": "vue-cli-service lint"
+  },
   "main": "dist/otp.js",
   "module": "dist/otp.module.js",
   "unpkg": "dist/otp.min.js",
@@ -15,24 +19,10 @@
     "src",
     "dist"
   ],
-  "author": {
-    "email": "badawymahmod@gmail.com",
-    "name": "Badawy Aboauds"
-  },
-  "repository": {
-    "directory": ""
-  },
-  "bugs": {
-    "url": ""
-  },
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "rm -rf dist/* && rollup -c scripts/build.js",
-    "lint": "vue-cli-service lint"
-  },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -46,8 +36,9 @@
     "@babel/register": "^7.4.4",
     "@babel/runtime": "^7.4.5",
     "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-plugin-eslint": "^4.4.1",
     "@vue/cli-service": "~4.4.0",
+    "@vue/eslint-config-standard": "^5.1.2",
     "@vue/test-utils": "^1.0.0-beta.12",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^10.1.0",
@@ -59,8 +50,10 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.7",
     "eslint-plugin-html": "^2.0.3",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "eventsource-polyfill": "^0.9.6",
     "fsevents": "^2.1.3",
@@ -98,7 +91,8 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/standard"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
@@ -109,5 +103,16 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [
+    "otp",
+    "one time password"
+  ],
+  "license": "MIT",
+  "repository": {
+    "directory": ""
+  }
 }

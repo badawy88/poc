@@ -19,8 +19,9 @@ public class MainWebAppInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
         root.register(WebConfig.class);
         servletContext.addListener(new ContextLoaderListener(root));
-        ServletRegistration.Dynamic appServlet =
-                servletContext.addServlet("mvc", new DispatcherServlet(new GenericWebApplicationContext()));
-        appServlet.setLoadOnStartup(1);
+        ServletRegistration.Dynamic dispatcher =
+                servletContext.addServlet("DispatcherServlet", new DispatcherServlet(root));
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/*");
     }
 }

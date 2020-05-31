@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <OTP msg="Welcome to Your Vue.js App"/>
+    <OTP v-bind:digits="6" :use-separator="true" :separator="'-'" id="otp"/>
   </div>
 </template>
 

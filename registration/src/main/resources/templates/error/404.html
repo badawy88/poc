@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="common/template.html :: head">
-    <!-- Add ur extra js here-->
+<head >
+    <title>404</title>
+    <noscript th:replace="common/template.html :: head" ></noscript>
 </head>
 
 <body class="bg-gray">
 <header th:insert="common/template.html :: header"></header>
 <main class="container bg-white mt-5 mh-100 rounded shadow box-shadow" id="main-section">
-    <form @submit="submit" th:action="@{/otp}" class="needs-validation" method="post" novalidate>
+    <form @submit="submit" class="needs-validation" method="post" novalidate>
         <div class="row p-5">
             <div class="col-sm col-lg col-xl col-md">
                 <h3 class="d-flex justify-content-center" th:text="#{title}"></h3>
@@ -17,9 +18,8 @@
         <div class="row">
             <div class="col-sm-3 col-lg-3 col-xl-3 col-md-3 mr-auto ml-auto">
                 <div class="form-group">
-                    <OTP :digits="4" id="otp1"></OTP>
-                    <div class="alert alert-primary" v-if="errors.length" th:text="#{field.required}">
-                    </div>
+                    Resource not found [[${#response.getStatus()}]]
+                    <font color="red">Error: [[${#exception.getMessage}]]</font><br>
                 </div>
             </div>
         </div>
@@ -33,31 +33,5 @@
         </div>
     </form>
 </main>
-
-<script>
-
-  Vue.use(window.vuelidate.default)
-  const { required, minLength, numeric, length, maxLength } = window.validators
-
-  var app = new Vue({
-    el: '#main-section',
-    data: {
-      errors:[]
-    },
-    validations: {
-    },
-    components: {
-      otp
-    },
-    methods: {
-      submit () {
-        if( $(":invalid").length !== 0 ) {
-          this.errors.push('[[#{albilad.contact}]]')
-        }
-        console.log('done')
-      }
-    }
-  })
-</script>
 </body>
 </html>
